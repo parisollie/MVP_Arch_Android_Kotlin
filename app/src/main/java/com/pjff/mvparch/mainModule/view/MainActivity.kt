@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
     }
 
     //Paso 101.1 ,Mostar la visibilidad el boton de anuncio
+    //Paso 104.5,ponemos el suspend
     suspend fun showAdUI(isVisible: Boolean) = withContext(Dispatchers.Main) {
         binding.btnAd.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
@@ -125,6 +126,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         binding.srlResults.isRefreshing = isVisible
     }
 
+    //V-33,paso 104.0
     suspend fun showToast(msg: String) = withContext(Dispatchers.Main) {
         Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
     }

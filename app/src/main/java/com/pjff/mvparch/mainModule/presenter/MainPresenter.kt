@@ -67,6 +67,7 @@ class MainPresenter(private val view: MainActivity) {
     private fun onEvent() {
         viewScope.launch {
             EventBus.instance().subscribe<SportEvent> { event ->
+                //Paso 104.5
                 this.launch {
                     when (event) {
                         is SportEvent.ResultSuccess -> {
