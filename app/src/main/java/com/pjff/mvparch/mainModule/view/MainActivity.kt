@@ -16,8 +16,12 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() , OnClickListener {
 
+    //-----Modelo anterior
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ResultAdapter
+
+    //-----
+    //Paso 103.2, inyectamos el presentador
     private lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Paso 103.3
         presenter = MainPresenter(this)
         presenter.onCreate()
 
@@ -34,6 +39,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         setupClicks()
     }
 
+    //----- *** pega metodos anteriores--------------------
     private fun setupAdapter() {
         adapter = ResultAdapter(this)
     }
@@ -48,6 +54,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
 
     private fun setupSwipeRefresh() {
         binding.srlResults.setOnRefreshListener {
+            //Paso 103.4
             lifecycleScope.launch { presenter.refresh() }
         }
     }
@@ -56,11 +63,13 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         binding.btnAd.run {
             setOnClickListener {
                 lifecycleScope.launch {
+                    //Paso 103.5
                     lifecycleScope.launch { presenter.registerAd() }
                 }
             }
             setOnLongClickListener {  view ->
                 lifecycleScope.launch {
+                    //Paso 103.6
                     lifecycleScope.launch { presenter.closeAd() }
                 }
                 true
@@ -68,27 +77,36 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         }
     }
 
+
     override fun onStart() {
         super.onStart()
+        //Paso 103.7
         lifecycleScope.launch { presenter.getEvents() }
     }
 
+
+    /*
+    * ***OnClickListener
+    *
+    */
+    override fun onClick(result: SportEvent.ResultSuccess) {
+        binding.srlResults.isRefreshing = true
+        lifecycleScope.launch {
+            //Paso 103.8
+            presenter.saveResult(result)
+        }
+    }
+    //---------------------
+    //Paso 103.9
     override fun onDestroy() {
         presenter.onDestroy()
         super.onDestroy()
     }
 
+
     /*
-    * OnClickListener
-    * */
-    override fun onClick(result: SportEvent.ResultSuccess) {
-        binding.srlResults.isRefreshing = true
-        lifecycleScope.launch {
-            presenter.saveResult(result)
-        }
-    }
-    /*
-    * View layer
+    * V-30, paso 101.0 , tiene que ver con la View layer
+    * Definimos todos los metodos que serán despachados del presentador
     * */
     fun add(event: SportEvent.ResultSuccess) {
         adapter.add(event)
@@ -98,6 +116,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
         adapter.clear()
     }
 
+    //Paso 101.1 ,Mostar la visibilidad el boton de anuncio
     suspend fun showAdUI(isVisible: Boolean) = withContext(Dispatchers.Main) {
         binding.btnAd.visibility = if (isVisible) View.VISIBLE else View.GONE
     }

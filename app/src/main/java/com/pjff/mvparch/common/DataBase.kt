@@ -2,7 +2,7 @@ package com.pjff.mvparch.common
 
 import kotlin.random.Random
 
-//***
+//*** Copiar del anterior
 
 fun getResultEventsInRealtime() = listOf(
     SportEvent.ResultSuccess(1, "Fútbol", listOf("Italia", "Perú", "Corea del Sur")),

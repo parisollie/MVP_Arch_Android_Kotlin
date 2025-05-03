@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlin.coroutines.coroutineContext
 
 
-//***
+//*** Copiar del anterior
 class EventBus {
     private val _events = MutableSharedFlow<Any>()
     val events: SharedFlow<Any> = _events

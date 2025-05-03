@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    //V-28,paso 100.0
     viewBinding { enable = true }
 }
 
@@ -47,6 +48,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // SwipeRefreshLayout
+    //Paso 100.1, SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

@@ -10,7 +10,7 @@ import com.pjff.mvparch.R
 import com.pjff.mvparch.common.SportEvent
 import com.pjff.mvparch.databinding.ItemEventBinding
 
-//***
+//*** Copiar del anterior
 class ResultAdapter(private val listener: OnClickListener) : RecyclerView.Adapter<ResultAdapter.ViewHolder>() {
 
     private val results = mutableListOf<SportEvent.ResultSuccess>()

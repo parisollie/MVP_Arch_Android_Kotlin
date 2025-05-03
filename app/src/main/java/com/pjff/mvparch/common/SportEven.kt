@@ -2,7 +2,7 @@ package com.pjff.mvparch.common
 
 import com.pjff.mvparch.R
 
-//***
+//*** Copiar del anterior
 sealed class SportEvent {
     data class ResultSuccess(val sportKey: Int,
                              val sportName: String,
